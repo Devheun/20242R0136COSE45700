@@ -11,9 +11,8 @@ public abstract class CanvasObject implements CanvasObjectInterface {
     protected int x, y;
     protected int width, height;
 
-    public CanvasObject(Color color, int id, int x, int y, int width, int height) {
+    public CanvasObject(Color color, int x, int y, int width, int height) {
         this.color = color;
-        this.id = id;
         this.x = x;
         this.y = y;
         this.width = width;

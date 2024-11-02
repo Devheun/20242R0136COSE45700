@@ -2,10 +2,12 @@ package org.swproject.model;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.List;
+import org.swproject.observer.Observer;
+import org.swproject.observer.Subject;
 
-public class Model {
-    private final List<CanvasObjectInterface> canvasObjects = new ArrayList<>();
+public class Model implements Subject {
+    private final ArrayList<CanvasObjectInterface> canvasObjects = new ArrayList<>();
+    private final ArrayList<Observer> observers = new ArrayList<>();
 
     public void createCanvasObject(CanvasObject canvasObject) {
         int size = canvasObjects.size();
@@ -16,6 +18,7 @@ public class Model {
         }
 
         canvasObjects.add(canvasObject);
+        notifyObserver();
     }
 
     public void updateCanvasObject(CanvasObject canvasObject) {
@@ -31,4 +34,20 @@ public class Model {
     }
 
 
+    @Override
+    public void attachObserver(Observer o) {
+        observers.add(o);
+    }
+
+    @Override
+    public void detachObserver(Observer o) {
+        observers.remove(o);
+    }
+
+    @Override
+    public void notifyObserver() {
+        for (Observer o : observers) {
+            o.updateCanvasObjects(canvasObjects);
+        }
+    }
 }

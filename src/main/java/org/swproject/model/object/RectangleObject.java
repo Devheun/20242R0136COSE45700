@@ -6,8 +6,8 @@ import org.swproject.model.CanvasObject;
 
 public class RectangleObject extends CanvasObject {
 
-    public RectangleObject(Color color, int id, int x, int y, int width, int height) {
-        super(color, id, x, y, width, height);
+    public RectangleObject(Color color, int x, int y, int width, int height) {
+        super(color, x, y, width, height);
     }
 
     @Override
