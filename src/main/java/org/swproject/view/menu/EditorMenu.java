@@ -1,4 +1,4 @@
-package main.java.org.swproject.view.menu;
+package org.swproject.view.menu;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;

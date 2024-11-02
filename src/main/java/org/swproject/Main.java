@@ -1,7 +1,7 @@
-package main.java.org.swproject;
+package org.swproject;
 
 import javax.swing.SwingUtilities;
-import main.java.org.swproject.view.GraphicEditor;
+import org.swproject.view.GraphicEditor;
 
 public class Main {
     public static void main(String[] args) {
