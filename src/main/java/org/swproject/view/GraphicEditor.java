@@ -1,8 +1,8 @@
-package main.java.org.swproject.view;
+package org.swproject.view;
 
 import java.awt.BorderLayout;
 import javax.swing.JFrame;
-import main.java.org.swproject.view.menu.EditorMenu;
+import org.swproject.view.menu.EditorMenu;
 
 public class GraphicEditor extends JFrame {
     private static final int EDITOR_WIDTH = 800;
