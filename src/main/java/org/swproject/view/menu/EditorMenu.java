@@ -11,9 +11,9 @@ import org.swproject.model.object.RectangleObject;
 
 public class EditorMenu extends JMenuBar {
 
-    private final static int defaultCoordinate = 30;
-    private final static int defaultSize = 50;
-    private final static Color defaultColor = Color.GREEN;
+    private final static int defaultCoordinate = 100;
+    private final static int defaultSize = 100;
+    private final static Color defaultColor = Color.BLACK;
 
     public EditorMenu(Controller controller) {
         JMenu shapeMenu = new JMenu("Add shape");
@@ -33,12 +33,23 @@ public class EditorMenu extends JMenuBar {
         lineItem.addActionListener(
                 e -> controller.createObject(
                         new LineObject(defaultColor, defaultCoordinate, defaultCoordinate, defaultSize, defaultSize,
-                                defaultCoordinate + 20,
-                                defaultCoordinate + 20)));
+                                defaultCoordinate + 100,
+                                defaultCoordinate + 100)));
 
         shapeMenu.add(rectangleItem);
         shapeMenu.add(ellipseItem);
         shapeMenu.add(lineItem);
         add(shapeMenu);
+        
+        JMenu cursorMode = new JMenu("Cursor Mode");
+        JMenuItem defaultModeItem = new JMenuItem("Default Mode");
+        defaultModeItem.addActionListener(event -> controller.setDefaultCursorState());
+
+        JMenuItem selectModeItem = new JMenuItem("Select Mode");
+        selectModeItem.addActionListener(event -> controller.setSelectCursorState());
+
+        cursorMode.add(defaultModeItem);
+        cursorMode.add(selectModeItem);
+        add(cursorMode);
     }
 }
