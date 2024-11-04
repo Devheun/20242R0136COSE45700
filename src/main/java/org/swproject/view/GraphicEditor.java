@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import org.swproject.controller.Controller;
 import org.swproject.view.canvas.CanvasPanel;
 import org.swproject.view.menu.EditorMenu;
+import org.swproject.view.property.PropertyPanel;
 
 public class GraphicEditor extends JFrame {
     private static final int EDITOR_WIDTH = 800;
@@ -16,6 +17,7 @@ public class GraphicEditor extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         add(new EditorMenu(controller), BorderLayout.BEFORE_FIRST_LINE);
-        add(new CanvasPanel(controller));
+        add(new CanvasPanel(controller), BorderLayout.CENTER);
+        add(new PropertyPanel(controller), BorderLayout.EAST);
     }
 }

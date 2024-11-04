@@ -1,17 +1,20 @@
 package org.swproject.model.decorator;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Stroke;
 import org.swproject.model.CanvasObjectInterface;
 
 public class ClickDecorator implements CanvasObjectInterface {
 
     private final CanvasObjectInterface canvasObject;
+    private final Stroke stroke; // 선 스타일 설정
 
     public ClickDecorator(CanvasObjectInterface canvasObject) {
         this.canvasObject = canvasObject;
-        setColor(Color.RED);
+        this.stroke = new BasicStroke(3.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
     }
 
     @Override
@@ -21,8 +24,10 @@ public class ClickDecorator implements CanvasObjectInterface {
 
     @Override
     public void draw(Graphics2D g) {
+        g.setStroke(stroke);
         canvasObject.draw(g);
     }
+
 
     @Override
     public void setColor(Color color) {
@@ -63,4 +68,5 @@ public class ClickDecorator implements CanvasObjectInterface {
     public int getHeight() {
         return canvasObject.getHeight();
     }
+
 }

@@ -18,7 +18,6 @@ public class CanvasObjectComposite implements CanvasObjectInterface {
     }
 
     public void remove(CanvasObjectInterface canvasObject) {
-        canvasObject.setColor(Color.black);
         canvasObjects.remove(canvasObject);
     }
 
@@ -59,6 +58,7 @@ public class CanvasObjectComposite implements CanvasObjectInterface {
             canvasObject.setColor(color);
         }
     }
+
 
     @Override
     public void move(int dx, int dy) {
