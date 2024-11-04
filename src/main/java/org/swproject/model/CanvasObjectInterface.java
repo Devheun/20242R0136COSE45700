@@ -8,7 +8,6 @@ public interface CanvasObjectInterface {
     void resize(int x, int y, int width, int height);
 
     void draw(Graphics2D g);
-    
 
     void setColor(Color color);
 

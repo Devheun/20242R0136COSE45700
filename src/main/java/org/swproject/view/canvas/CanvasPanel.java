@@ -8,14 +8,18 @@ import java.util.List;
 import javax.swing.JPanel;
 import org.swproject.controller.Controller;
 import org.swproject.model.CanvasObjectInterface;
+import org.swproject.model.decorator.ClickDecorator;
 import org.swproject.observer.Observer;
 
 public class CanvasPanel extends JPanel implements Observer {
     private List<CanvasObjectInterface> canvasObjects = new ArrayList<>();
+    private CanvasObjectInterface selectedCanvasObjects;
 
     public CanvasPanel(Controller controller) {
         controller.attachObserver(this);
         setBackground(Color.WHITE);
+        addMouseListener(controller);
+        addMouseMotionListener(controller);
     }
 
     @Override
@@ -26,6 +30,11 @@ public class CanvasPanel extends JPanel implements Observer {
         for (CanvasObjectInterface object : canvasObjects) {
             object.draw(graphics2D);
         }
+
+        if (selectedCanvasObjects != null) {
+            ClickDecorator clickDecorator = new ClickDecorator(selectedCanvasObjects);
+            clickDecorator.draw(graphics2D);
+        }
     }
 
     @Override
@@ -33,4 +42,11 @@ public class CanvasPanel extends JPanel implements Observer {
         this.canvasObjects = objects;
         repaint();
     }
+
+    @Override
+    public void updateSelectedCanvasObjects(CanvasObjectInterface objects) {
+        this.selectedCanvasObjects = objects;
+        repaint();
+    }
+
 }

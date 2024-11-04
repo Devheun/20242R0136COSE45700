@@ -6,8 +6,10 @@ import org.swproject.observer.Observer;
 import org.swproject.observer.Subject;
 
 public class Model implements Subject {
-    private final ArrayList<CanvasObjectInterface> canvasObjects = new ArrayList<>();
-    private final ArrayList<Observer> observers = new ArrayList<>();
+    private static final ArrayList<CanvasObjectInterface> canvasObjects = new ArrayList<>();
+    private static final ArrayList<Observer> observers = new ArrayList<>();
+
+    private static final CanvasObjectComposite canvasObjectComposite = new CanvasObjectComposite();
 
     public void createCanvasObject(CanvasObject canvasObject) {
         int size = canvasObjects.size();
@@ -21,7 +23,8 @@ public class Model implements Subject {
         notifyObserver();
     }
 
-    public void updateCanvasObject(CanvasObject canvasObject) {
+    public void updateCanvasObject() {
+        notifyObserver();
     }
 
     public CanvasObjectInterface getCanvasObjectAtPoint(Point point) {
@@ -31,6 +34,25 @@ public class Model implements Subject {
             }
         }
         return null;
+    }
+
+    public void handleMouseClick(CanvasObjectInterface canvasObject) {
+        if (canvasObjectComposite.isAlreadySelected(canvasObject)) {
+            canvasObjectComposite.remove(canvasObject);
+        } else {
+            canvasObjectComposite.add(canvasObject);
+        }
+        notifyObserverClickedObjects();
+    }
+
+    public CanvasObjectComposite getCanvasObjectComposite() {
+        return canvasObjectComposite;
+    }
+
+    public void notifyObserverClickedObjects() {
+        for (Observer observer : observers) {
+            observer.updateSelectedCanvasObjects(canvasObjectComposite);
+        }
     }
 
 
