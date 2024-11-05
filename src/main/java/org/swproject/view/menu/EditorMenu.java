@@ -40,7 +40,7 @@ public class EditorMenu extends JMenuBar {
         shapeMenu.add(ellipseItem);
         shapeMenu.add(lineItem);
         add(shapeMenu);
-        
+
         JMenu cursorMode = new JMenu("Cursor Mode");
         JMenuItem defaultModeItem = new JMenuItem("Default Mode");
         defaultModeItem.addActionListener(event -> controller.setDefaultCursorState());
@@ -51,5 +51,15 @@ public class EditorMenu extends JMenuBar {
         cursorMode.add(defaultModeItem);
         cursorMode.add(selectModeItem);
         add(cursorMode);
+
+        JMenu changeMode = new JMenu("Change Order");
+        JMenuItem frontOrderItem = new JMenuItem("Place to Front");
+        frontOrderItem.addActionListener(e -> controller.placeObjectToFront());
+
+        JMenuItem backOrderItem = new JMenuItem("Place to Back");
+        backOrderItem.addActionListener(e -> controller.placeObjectToBack());
+        changeMode.add(frontOrderItem);
+        changeMode.add(backOrderItem);
+        add(changeMode);
     }
 }

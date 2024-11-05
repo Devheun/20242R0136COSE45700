@@ -16,7 +16,9 @@ public class SelectCursorState implements CursorState {
     @Override
     public void mouseClicked(MouseEvent event) {
         CanvasObjectInterface canvasObject = model.getCanvasObjectAtPoint(event.getPoint());
-        model.handleMouseClick(canvasObject);
+        if (canvasObject != null) {
+            model.handleMouseClick(canvasObject);
+        }
     }
 
     @Override

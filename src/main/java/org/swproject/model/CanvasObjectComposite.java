@@ -38,6 +38,10 @@ public class CanvasObjectComposite implements CanvasObjectInterface {
         move(dx, dy);
     }
 
+    public List<CanvasObjectInterface> getCanvasObjects() {
+        return canvasObjects;
+    }
+
     @Override
     public void resize(int x, int y, int width, int height) {
         if (canvasObjects.size() == 1) {

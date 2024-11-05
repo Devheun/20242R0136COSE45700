@@ -44,6 +44,14 @@ public class Controller extends MouseAdapter {
         setCursor(new SelectCursorState(model));
     }
 
+    public void placeObjectToFront() {
+        model.placeObjectToFront();
+    }
+
+    public void placeObjectToBack() {
+        model.placeObjectToBack();
+    }
+
     @Override
     public void mouseClicked(MouseEvent event) {
         this.cursor.mouseClicked(event);

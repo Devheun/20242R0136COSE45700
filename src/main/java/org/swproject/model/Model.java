@@ -55,6 +55,26 @@ public class Model implements Subject {
         }
     }
 
+    public void placeObjectToFront() {
+        for (CanvasObjectInterface canvasObject : canvasObjectComposite.getCanvasObjects()) {
+            // 리스트에 들어가는 순서 변경하기
+            canvasObjects.remove(canvasObject);
+            canvasObjects.addFirst(canvasObject);
+        }
+        notifyObserver();
+        notifyObserverClickedObjects();
+    }
+
+    public void placeObjectToBack() {
+        for (CanvasObjectInterface canvasObject : canvasObjectComposite.getCanvasObjects()) {
+            // 리스트에 들어가는 순서 변경하기
+            canvasObjects.remove(canvasObject);
+            canvasObjects.add(canvasObject);
+        }
+        notifyObserver();
+        notifyObserverClickedObjects();
+    }
+
 
     @Override
     public void attachObserver(Observer o) {
