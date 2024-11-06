@@ -46,7 +46,7 @@ public abstract class CanvasObject implements CanvasObjectInterface {
     }
 
     @Override
-    public boolean contains(Point point) {
+    public boolean isPointerInside(Point point) {
         return (point.x >= x && point.x <= x + width && point.y >= y && point.y <= y + height);
     }
 

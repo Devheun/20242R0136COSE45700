@@ -13,7 +13,7 @@ public interface CanvasObjectInterface {
 
     void move(int dx, int dy);
 
-    boolean contains(Point point);
+    boolean isPointerInside(Point point);
 
     int getId();
 

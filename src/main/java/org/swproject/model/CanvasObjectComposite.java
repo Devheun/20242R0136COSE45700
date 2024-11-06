@@ -72,9 +72,9 @@ public class CanvasObjectComposite implements CanvasObjectInterface {
     }
 
     @Override
-    public boolean contains(Point point) {
+    public boolean isPointerInside(Point point) {
         for (CanvasObjectInterface canvasObject : canvasObjects) {
-            if (canvasObject.contains(point)) {
+            if (canvasObject.isPointerInside(point)) {
                 return true;
             }
         }

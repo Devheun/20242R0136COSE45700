@@ -40,8 +40,8 @@ public class ClickDecorator implements CanvasObjectInterface {
     }
 
     @Override
-    public boolean contains(Point point) {
-        return canvasObject.contains(point);
+    public boolean isPointerInside(Point point) {
+        return canvasObject.isPointerInside(point);
     }
 
     @Override
