@@ -11,6 +11,8 @@ public abstract class CanvasObject implements CanvasObjectInterface {
     protected int x, y;
     protected int width, height;
     private final int handleSize = 10;
+    private final int minWidth = 10;
+    private final int minHeight = 10;
 
     public CanvasObject(Color color, int x, int y, int width, int height) {
         this.color = color;
@@ -24,8 +26,12 @@ public abstract class CanvasObject implements CanvasObjectInterface {
     public void resize(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
-        this.width = width;
-        this.height = height;
+        if (width > minWidth) {
+            this.width = width;
+        }
+        if (height > minHeight) {
+            this.height = height;
+        }
     }
 
     @Override
