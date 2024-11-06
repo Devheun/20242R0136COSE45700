@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
+import org.swproject.model.object.LineObject;
 
 public class CanvasObjectComposite implements CanvasObjectInterface {
 
@@ -43,7 +44,15 @@ public class CanvasObjectComposite implements CanvasObjectInterface {
         int dy = e.getY() - mouseY;
         mouseX = e.getX();
         mouseY = e.getY();
-        resize(x, y, width + dx, height + dy);
+
+        CanvasObjectInterface obj = canvasObjects.getFirst();
+        if (obj instanceof LineObject line) {
+            line.resize(obj.getX() + dx, obj.getY() + dy);
+            return;
+        }
+        // Line이 아닌 Rectangle, Ellipse
+        obj.resize(obj.getX(), obj.getY(), obj.getWidth() + dx, obj.getHeight() + dy);
+
     }
 
     public List<CanvasObjectInterface> getCanvasObjects() {

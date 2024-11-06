@@ -34,6 +34,12 @@ public abstract class CanvasObject implements CanvasObjectInterface {
         }
     }
 
+    // line일때 실행되는 resize
+    public void resize(int x2, int y2) {
+        this.x = x2;
+        this.y = y2;
+    }
+
     @Override
     public abstract void draw(Graphics2D g);
 
