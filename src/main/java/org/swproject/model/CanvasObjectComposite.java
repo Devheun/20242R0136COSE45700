@@ -38,6 +38,14 @@ public class CanvasObjectComposite implements CanvasObjectInterface {
         move(dx, dy);
     }
 
+    public void handleResizing(MouseEvent e, int x, int y, int width, int height) {
+        int dx = e.getX() - mouseX;
+        int dy = e.getY() - mouseY;
+        mouseX = e.getX();
+        mouseY = e.getY();
+        resize(x, y, width + dx, height + dy);
+    }
+
     public List<CanvasObjectInterface> getCanvasObjects() {
         return canvasObjects;
     }
@@ -77,6 +85,14 @@ public class CanvasObjectComposite implements CanvasObjectInterface {
             if (canvasObject.isPointerInside(point)) {
                 return true;
             }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isResizable(Point point) {
+        if (canvasObjects.size() == 1) {
+            return canvasObjects.getFirst().isResizable(point);
         }
         return false;
     }

@@ -15,6 +15,8 @@ public interface CanvasObjectInterface {
 
     boolean isPointerInside(Point point);
 
+    boolean isResizable(Point point);
+
     int getId();
 
     int getX();

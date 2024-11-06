@@ -66,4 +66,9 @@ public class Controller extends MouseAdapter {
     public void mouseDragged(MouseEvent event) {
         this.cursor.mouseDragged(event);
     }
+
+    @Override
+    public void mouseReleased(MouseEvent event) {
+        this.cursor.mouseReleased(event);
+    }
 }

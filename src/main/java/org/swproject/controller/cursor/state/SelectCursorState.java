@@ -8,6 +8,7 @@ import org.swproject.model.Model;
 public class SelectCursorState implements CursorState {
 
     private final Model model;
+    private boolean isResizing = false;
 
     public SelectCursorState(Model model) {
         this.model = model;
@@ -24,13 +25,26 @@ public class SelectCursorState implements CursorState {
     @Override
     public void mousePressed(MouseEvent event) {
         CanvasObjectComposite canvasObject = model.getCanvasObjectComposite();
+        if (canvasObject.isResizable(event.getPoint())) {
+            isResizing = true;
+        }
         canvasObject.handleMousePressed(event);
     }
 
     @Override
     public void mouseDragged(MouseEvent event) {
         CanvasObjectComposite canvasObject = model.getCanvasObjectComposite();
-        canvasObject.handleMouseDragged(event);
+        if (isResizing) {
+            canvasObject.handleResizing(event, canvasObject.getX(), canvasObject.getY(), canvasObject.getWidth(),
+                    canvasObject.getHeight());
+        } else {
+            canvasObject.handleMouseDragged(event);
+        }
         model.notifyObserverClickedObjects();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent event) {
+        isResizing = false;
     }
 }

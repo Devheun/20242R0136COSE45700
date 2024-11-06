@@ -10,6 +10,7 @@ public abstract class CanvasObject implements CanvasObjectInterface {
     protected int id;
     protected int x, y;
     protected int width, height;
+    private final int handleSize = 10;
 
     public CanvasObject(Color color, int x, int y, int width, int height) {
         this.color = color;
@@ -48,6 +49,12 @@ public abstract class CanvasObject implements CanvasObjectInterface {
     @Override
     public boolean isPointerInside(Point point) {
         return (point.x >= x && point.x <= x + width && point.y >= y && point.y <= y + height);
+    }
+
+    @Override
+    public boolean isResizable(Point point) {
+        return (point.x >= x + width - handleSize / 2 && point.x <= x + width + handleSize / 2) && (
+                point.y >= y + height - handleSize / 2 && point.y <= y + height + handleSize / 2);
     }
 
     @Override

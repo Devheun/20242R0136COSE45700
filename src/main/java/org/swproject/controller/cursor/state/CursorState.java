@@ -8,4 +8,6 @@ public interface CursorState {
     void mousePressed(MouseEvent event);
 
     void mouseDragged(MouseEvent event);
+
+    void mouseReleased(MouseEvent event);
 }
