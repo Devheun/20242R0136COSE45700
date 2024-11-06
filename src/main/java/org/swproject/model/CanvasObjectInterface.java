@@ -13,7 +13,9 @@ public interface CanvasObjectInterface {
 
     void move(int dx, int dy);
 
-    boolean contains(Point point);
+    boolean isPointerInside(Point point);
+
+    boolean isResizable(Point point);
 
     int getId();
 

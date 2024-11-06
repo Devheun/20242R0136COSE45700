@@ -29,7 +29,7 @@ public class Model implements Subject {
 
     public CanvasObjectInterface getCanvasObjectAtPoint(Point point) {
         for (CanvasObjectInterface canvasObject : canvasObjects) {
-            if (canvasObject.contains(point)) {
+            if (canvasObject.isPointerInside(point)) {
                 return canvasObject;
             }
         }

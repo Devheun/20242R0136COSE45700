@@ -14,4 +14,10 @@ public class DefaultCursorState implements CursorState {
     @Override
     public void mouseDragged(MouseEvent event) {
     }
+
+    @Override
+    public void mouseReleased(MouseEvent event) {
+    }
+
+
 }

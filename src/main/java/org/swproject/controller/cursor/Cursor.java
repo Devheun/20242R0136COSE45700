@@ -26,4 +26,8 @@ public class Cursor {
     public void mouseDragged(MouseEvent event) {
         cursorState.mouseDragged(event);
     }
+
+    public void mouseReleased(MouseEvent event) {
+        cursorState.mouseReleased(event);
+    }
 }
