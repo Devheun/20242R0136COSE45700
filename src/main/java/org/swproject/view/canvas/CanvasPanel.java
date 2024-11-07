@@ -8,7 +8,7 @@ import java.util.List;
 import javax.swing.JPanel;
 import org.swproject.controller.Controller;
 import org.swproject.model.CanvasObjectInterface;
-import org.swproject.model.decorator.ClickDecorator;
+import org.swproject.model.decorator.SelectedCanvasObjectDecorator;
 import org.swproject.observer.Observer;
 
 public class CanvasPanel extends JPanel implements Observer {
@@ -32,8 +32,9 @@ public class CanvasPanel extends JPanel implements Observer {
         }
 
         if (selectedCanvasObjects != null) {
-            ClickDecorator clickDecorator = new ClickDecorator(selectedCanvasObjects);
-            clickDecorator.draw(graphics2D);
+            SelectedCanvasObjectDecorator selectedCanvasObjectDecorator = new SelectedCanvasObjectDecorator(
+                    selectedCanvasObjects);
+            selectedCanvasObjectDecorator.draw(graphics2D);
         }
     }
 
