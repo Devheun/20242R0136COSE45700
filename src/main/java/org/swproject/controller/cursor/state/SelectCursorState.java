@@ -30,13 +30,13 @@ public class SelectCursorState implements CursorState {
     @Override
     public void mousePressed(MouseEvent event) {
         CanvasObjectComposite canvasObject = model.getCanvasObjectComposite();
-        canvasObject.handleMousePressed(event);
+
         if (canvasObject.isResizable(event.getPoint())) {
             changeState(ResizingState.getInstance(model));
         } else {
             changeState(DraggingState.getInstance(model));
         }
-        currentState.mousePressed(event);
+        canvasObject.handleMousePressed(event);
     }
 
     @Override
