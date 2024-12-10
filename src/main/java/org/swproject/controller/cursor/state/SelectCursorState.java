@@ -8,10 +8,15 @@ import org.swproject.model.Model;
 public class SelectCursorState implements CursorState {
 
     private final Model model;
-    private boolean isResizing = false;
+    private CursorState currentState;
 
     public SelectCursorState(Model model) {
         this.model = model;
+        this.currentState = DraggingState.getInstance(model); // 디폴트로 Dragging state로 설정
+    }
+
+    public void changeState(CursorState state) {
+        this.currentState = state;
     }
 
     @Override
@@ -25,26 +30,23 @@ public class SelectCursorState implements CursorState {
     @Override
     public void mousePressed(MouseEvent event) {
         CanvasObjectComposite canvasObject = model.getCanvasObjectComposite();
-        if (canvasObject.isResizable(event.getPoint())) {
-            isResizing = true;
-        }
         canvasObject.handleMousePressed(event);
+        if (canvasObject.isResizable(event.getPoint())) {
+            changeState(ResizingState.getInstance(model));
+        } else {
+            changeState(DraggingState.getInstance(model));
+        }
+        currentState.mousePressed(event);
     }
 
     @Override
     public void mouseDragged(MouseEvent event) {
-        CanvasObjectComposite canvasObject = model.getCanvasObjectComposite();
-        if (isResizing) {
-            canvasObject.handleResizing(event, canvasObject.getX(), canvasObject.getY(), canvasObject.getWidth(),
-                    canvasObject.getHeight());
-        } else {
-            canvasObject.handleMouseDragged(event);
-        }
-        model.notifyObserverClickedObjects();
+        currentState.mouseDragged(event);
     }
 
     @Override
     public void mouseReleased(MouseEvent event) {
-        isResizing = false;
+        currentState.mouseReleased(event);
+        changeState(DraggingState.getInstance(model));
     }
 }
