@@ -8,14 +8,14 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 import org.swproject.model.CanvasObjectInterface;
 
-public class ClickDecorator implements CanvasObjectInterface {
+public class SelectedCanvasObjectDecorator implements CanvasObjectInterface {
 
     private final CanvasObjectInterface canvasObject;
     private final Stroke stroke; // 선 스타일 설정
     private Rectangle resizeHandler = new Rectangle();
     private int handleSize = 10;
 
-    public ClickDecorator(CanvasObjectInterface canvasObject) {
+    public SelectedCanvasObjectDecorator(CanvasObjectInterface canvasObject) {
         this.canvasObject = canvasObject;
         this.stroke = new BasicStroke(3.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND);
         createResizeHandles();
