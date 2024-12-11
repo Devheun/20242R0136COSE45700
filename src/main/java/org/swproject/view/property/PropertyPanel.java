@@ -1,7 +1,6 @@
 package org.swproject.view.property;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,16 +14,13 @@ import org.swproject.view.property.panels.WidthPanel;
 
 public class PropertyPanel extends JPanel implements Observer {
 
-    private CanvasObjectInterface canvasObject;
-    private final Controller controller;
     private final WidthPanel widthPanel;
     private final HeightPanel heightPanel;
     private final CoordinatePanel coordinatePanel;
     private final ColorPanel colorPanel;
 
     public PropertyPanel(Controller controller) {
-        this.controller = controller;
-        this.controller.attachObserver(this);
+        controller.attachObserver(this);
 
         this.heightPanel = new HeightPanel(controller);
         this.widthPanel = new WidthPanel(controller);
@@ -47,23 +43,13 @@ public class PropertyPanel extends JPanel implements Observer {
     }
 
     @Override
-    public void updateCanvasObjects(ArrayList<CanvasObjectInterface> objects) {
-
+    public void updateCanvasObjects() {
     }
 
     @Override
     public void updateSelectedCanvasObjects(CanvasObjectInterface objects) {
-        this.canvasObject = objects;
-        heightPanel.updateHeight(canvasObject.getHeight());
-
-        widthPanel.updateWidth(canvasObject.getWidth());
-
-        coordinatePanel.updateCoordinate(canvasObject.getX(), canvasObject.getY());
-        colorPanel.setCanvasObject(canvasObject);
-    }
-
-    public void updateCanvasObject(int x, int y, int width, int height) {
-//        canvasObject.resize(x, y);
-        this.controller.updateObject();
+        heightPanel.updateHeight(objects.getHeight());
+        widthPanel.updateWidth(objects.getWidth());
+        coordinatePanel.updateCoordinate(objects.getX(), objects.getY());
     }
 }

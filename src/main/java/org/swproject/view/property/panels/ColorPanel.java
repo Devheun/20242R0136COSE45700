@@ -2,7 +2,6 @@ package org.swproject.view.property.panels;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
@@ -14,7 +13,6 @@ import org.swproject.observer.Observer;
 public class ColorPanel extends JPanel implements Observer {
 
     private final JButton colorButton = new JButton("Choose Color");
-    private CanvasObjectInterface canvasObject;
 
     public ColorPanel(Controller controller) {
         setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -30,18 +28,11 @@ public class ColorPanel extends JPanel implements Observer {
 
     }
 
-    public void setCanvasObject(CanvasObjectInterface canvasObject) {
-        this.canvasObject = canvasObject;
-    }
-
     @Override
-    public void updateCanvasObjects(ArrayList<CanvasObjectInterface> objects) {
-
+    public void updateCanvasObjects() {
     }
 
     @Override
     public void updateSelectedCanvasObjects(CanvasObjectInterface objects) {
-        this.canvasObject = objects;
-
     }
 }

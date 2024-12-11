@@ -3,8 +3,6 @@ package org.swproject.view.canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JPanel;
 import org.swproject.controller.Controller;
 import org.swproject.model.CanvasObjectInterface;
@@ -12,10 +10,10 @@ import org.swproject.model.decorator.SelectedCanvasObjectDecorator;
 import org.swproject.observer.Observer;
 
 public class CanvasPanel extends JPanel implements Observer {
-    private List<CanvasObjectInterface> canvasObjects = new ArrayList<>();
-    private CanvasObjectInterface selectedCanvasObjects;
+    private final Controller controller;
 
     public CanvasPanel(Controller controller) {
+        this.controller = controller;
         controller.attachObserver(this);
         setBackground(Color.WHITE);
         addMouseListener(controller);
@@ -27,9 +25,11 @@ public class CanvasPanel extends JPanel implements Observer {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g;
 
-        for (CanvasObjectInterface object : canvasObjects) {
+        for (CanvasObjectInterface object : controller.getCanvasObjects()) {
             object.draw(graphics2D);
         }
+
+        CanvasObjectInterface selectedCanvasObjects = controller.getSelectedCanvasObjects();
 
         if (selectedCanvasObjects != null) {
             SelectedCanvasObjectDecorator selectedCanvasObjectDecorator = new SelectedCanvasObjectDecorator(
@@ -39,14 +39,12 @@ public class CanvasPanel extends JPanel implements Observer {
     }
 
     @Override
-    public void updateCanvasObjects(ArrayList<CanvasObjectInterface> objects) {
-        this.canvasObjects = objects;
+    public void updateCanvasObjects() {
         repaint();
     }
 
     @Override
     public void updateSelectedCanvasObjects(CanvasObjectInterface objects) {
-        this.selectedCanvasObjects = objects;
         repaint();
     }
 

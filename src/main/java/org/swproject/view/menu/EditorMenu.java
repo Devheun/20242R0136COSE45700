@@ -17,17 +17,17 @@ public class EditorMenu extends JMenuBar {
 
         JMenuItem rectangleItem = new JMenuItem("Rectangle");
         rectangleItem.addActionListener(
-                event -> controller.createObject(DrawObjectStateEnum.DRAW_RECTANGLE, defaultColor, defaultCoordinate,
+                event -> controller.drawObject(DrawObjectStateEnum.DRAW_RECTANGLE, defaultColor, defaultCoordinate,
                         defaultCoordinate, defaultCoordinate + 100, defaultCoordinate + 100));
 
         JMenuItem ellipseItem = new JMenuItem("Ellipse");
         ellipseItem.addActionListener(
-                event -> controller.createObject(DrawObjectStateEnum.DRAW_ELLIPSE, defaultColor, defaultCoordinate,
+                event -> controller.drawObject(DrawObjectStateEnum.DRAW_ELLIPSE, defaultColor, defaultCoordinate,
                         defaultCoordinate, defaultCoordinate + 100, defaultCoordinate + 100));
 
         JMenuItem lineItem = new JMenuItem("Line");
         lineItem.addActionListener(
-                event -> controller.createObject(DrawObjectStateEnum.DRAW_LINE, defaultColor, defaultCoordinate,
+                event -> controller.drawObject(DrawObjectStateEnum.DRAW_LINE, defaultColor, defaultCoordinate,
                         defaultCoordinate, defaultCoordinate + 100, defaultCoordinate + 100));
 
         shapeMenu.add(rectangleItem);

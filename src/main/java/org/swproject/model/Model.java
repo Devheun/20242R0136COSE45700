@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 import org.swproject.observer.Observer;
 import org.swproject.observer.Subject;
 
@@ -23,10 +24,6 @@ public class Model implements Subject {
         }
 
         canvasObjects.add(canvasObject);
-        notifyObserver();
-    }
-
-    public void updateCanvasObject() {
         notifyObserver();
     }
 
@@ -109,6 +106,10 @@ public class Model implements Subject {
         return canvasObjectComposite;
     }
 
+    public List<CanvasObjectInterface> getCanvasObjects() {
+        return canvasObjects;
+    }
+
     public void notifyObserverClickedObjects() {
         for (Observer observer : observers) {
             observer.updateSelectedCanvasObjects(canvasObjectComposite);
@@ -149,7 +150,7 @@ public class Model implements Subject {
     @Override
     public void notifyObserver() {
         for (Observer o : observers) {
-            o.updateCanvasObjects(canvasObjects);
+            o.updateCanvasObjects();
         }
     }
 }

@@ -5,7 +5,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -17,9 +16,10 @@ public class CoordinatePanel extends JPanel implements Observer {
     private final JTextField xField = new JTextField(5);
     private final JTextField yField = new JTextField(5);
 
-    private CanvasObjectInterface canvasObject;
+    private final Controller controller;
 
     public CoordinatePanel(Controller controller) {
+        this.controller = controller;
         controller.attachObserver(this);
 
         setLayout(new BorderLayout());
@@ -43,14 +43,16 @@ public class CoordinatePanel extends JPanel implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int xCoord = Integer.parseInt(xField.getText());
-                controller.move(xCoord - canvasObject.getX(), 0);
+                int currentX = controller.getSelectedCanvasObjects().getX();
+                controller.move(xCoord - currentX, 0);
             }
         };
         ActionListener yListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int yCoord = Integer.parseInt(yField.getText());
-                controller.move(0, yCoord - canvasObject.getY()
+                int currentY = controller.getSelectedCanvasObjects().getY();
+                controller.move(0, yCoord - currentY
                 );
             }
         };
@@ -62,14 +64,12 @@ public class CoordinatePanel extends JPanel implements Observer {
     }
 
     @Override
-    public void updateCanvasObjects(ArrayList<CanvasObjectInterface> objects) {
-
+    public void updateCanvasObjects() {
     }
 
     @Override
     public void updateSelectedCanvasObjects(CanvasObjectInterface objects) {
-        this.canvasObject = objects;
-        updateCoordinate(canvasObject.getX(), canvasObject.getY());
+        updateCoordinate(objects.getX(), objects.getY());
     }
 
     public void updateCoordinate(int x, int y) {

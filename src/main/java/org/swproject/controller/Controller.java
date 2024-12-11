@@ -3,6 +3,7 @@ package org.swproject.controller;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import org.swproject.command.CommandInvoker;
 import org.swproject.command.MoveCommand;
 import org.swproject.command.SetColorCommand;
@@ -13,6 +14,7 @@ import org.swproject.controller.cursor.state.CursorState;
 import org.swproject.controller.cursor.state.DefaultCursorState;
 import org.swproject.controller.cursor.state.DrawObjectStateEnum;
 import org.swproject.controller.cursor.state.SelectCursorState;
+import org.swproject.model.CanvasObjectInterface;
 import org.swproject.model.Model;
 import org.swproject.observer.Observer;
 
@@ -26,12 +28,9 @@ public class Controller extends MouseAdapter {
         this.cursor = new Cursor();
     }
 
-    public void createObject(DrawObjectStateEnum drawState, Color color, int x1, int y1, int x2, int y2) {
+    // 도형 그리기
+    public void drawObject(DrawObjectStateEnum drawState, Color color, int x1, int y1, int x2, int y2) {
         drawState.createDrawCommand(model, color, x1, y1, x2, y2);
-    }
-
-    public void updateObject() {
-        model.updateCanvasObject();
     }
 
     public void attachObserver(Observer o) {
@@ -84,6 +83,14 @@ public class Controller extends MouseAdapter {
 
     public void redo() {
         CommandInvoker.getInstance().redo();
+    }
+
+    public CanvasObjectInterface getSelectedCanvasObjects() {
+        return model.getCanvasObjectComposite();
+    }
+
+    public List<CanvasObjectInterface> getCanvasObjects() {
+        return model.getCanvasObjects();
     }
 
     @Override

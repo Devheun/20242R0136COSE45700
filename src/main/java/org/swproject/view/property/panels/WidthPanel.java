@@ -2,7 +2,6 @@ package org.swproject.view.property.panels;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -12,7 +11,6 @@ import org.swproject.observer.Observer;
 
 public class WidthPanel extends JPanel implements Observer {
     private final JTextField widthField = new JTextField(10);
-    private CanvasObjectInterface canvasObject;
 
     public WidthPanel(Controller controller) {
         controller.attachObserver(this);
@@ -29,14 +27,12 @@ public class WidthPanel extends JPanel implements Observer {
     }
 
     @Override
-    public void updateCanvasObjects(ArrayList<CanvasObjectInterface> objects) {
-
+    public void updateCanvasObjects() {
     }
 
     @Override
     public void updateSelectedCanvasObjects(CanvasObjectInterface objects) {
-        this.canvasObject = objects;
-        updateWidth(canvasObject.getWidth());
+        updateWidth(objects.getWidth());
     }
 
     public void updateWidth(int width) {
