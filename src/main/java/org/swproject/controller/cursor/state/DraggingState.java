@@ -1,7 +1,6 @@
 package org.swproject.controller.cursor.state;
 
 import java.awt.event.MouseEvent;
-import org.swproject.model.CanvasObjectComposite;
 import org.swproject.model.Model;
 
 public class DraggingState implements CursorState {
@@ -32,9 +31,7 @@ public class DraggingState implements CursorState {
 
     @Override
     public void mouseDragged(MouseEvent event) {
-        CanvasObjectComposite canvasObject = model.getCanvasObjectComposite();
-        canvasObject.handleMouseDragged(event);
-        model.notifyObserverClickedObjects();
+        model.handleMouseDragged(event);
     }
 
     @Override

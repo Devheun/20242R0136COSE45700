@@ -36,7 +36,7 @@ public class SelectCursorState implements CursorState {
         } else {
             changeState(DraggingState.getInstance(model));
         }
-        canvasObject.handleMousePressed(event);
+        model.handleMousePressed(event);
     }
 
     @Override

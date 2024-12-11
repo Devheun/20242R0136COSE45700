@@ -1,6 +1,7 @@
 package org.swproject.model;
 
 import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import org.swproject.observer.Observer;
 import org.swproject.observer.Subject;
@@ -10,6 +11,7 @@ public class Model implements Subject {
     private static final ArrayList<Observer> observers = new ArrayList<>();
 
     private static final CanvasObjectComposite canvasObjectComposite = new CanvasObjectComposite();
+    private int mouseX, mouseY;
 
     public void createCanvasObject(CanvasObject canvasObject) {
         int size = canvasObjects.size();
@@ -24,6 +26,11 @@ public class Model implements Subject {
     }
 
     public void updateCanvasObject() {
+        notifyObserver();
+    }
+
+    public void removeCanvasObject(CanvasObjectInterface canvasObject) {
+        canvasObjects.remove(canvasObject);
         notifyObserver();
     }
 
@@ -43,6 +50,36 @@ public class Model implements Subject {
             canvasObjectComposite.add(canvasObject);
         }
         notifyObserverClickedObjects();
+    }
+
+    public void handleMousePressed(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+    }
+
+    public void handleMouseDragged(MouseEvent e) {
+        int dx = e.getX() - mouseX;
+        int dy = e.getY() - mouseY;
+        mouseX = e.getX();
+        mouseY = e.getY();
+        canvasObjectComposite.move(dx, dy);
+        notifyObserver();
+        notifyObserverClickedObjects();
+    }
+
+    public void handleResizing(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+
+        CanvasObjectInterface obj = canvasObjectComposite.getCanvasObjects().getFirst();
+        if (obj != null) {
+            int dx = mouseX - obj.getX();
+            int dy = mouseY - obj.getY();
+            obj.setWidth(dx);
+            obj.setHeight(dy);
+            notifyObserver();
+            notifyObserverClickedObjects();
+        }
     }
 
     public CanvasObjectComposite getCanvasObjectComposite() {

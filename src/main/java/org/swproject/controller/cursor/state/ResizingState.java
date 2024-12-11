@@ -1,7 +1,6 @@
 package org.swproject.controller.cursor.state;
 
 import java.awt.event.MouseEvent;
-import org.swproject.model.CanvasObjectComposite;
 import org.swproject.model.Model;
 
 public class ResizingState implements CursorState {
@@ -33,9 +32,7 @@ public class ResizingState implements CursorState {
 
     @Override
     public void mouseDragged(MouseEvent event) {
-        CanvasObjectComposite canvasObject = model.getCanvasObjectComposite();
-        canvasObject.handleResizing(event);
-        model.notifyObserverClickedObjects();
+        model.handleResizing(event);
     }
 
     @Override
