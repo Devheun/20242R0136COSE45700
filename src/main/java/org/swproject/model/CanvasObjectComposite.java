@@ -26,6 +26,13 @@ public class CanvasObjectComposite implements CanvasObjectInterface {
         return canvasObjects;
     }
 
+    public Color getColor() {
+        if (canvasObjects.size() == 1) {
+            return canvasObjects.getFirst().getColor();
+        }
+        return null;
+    }
+
     @Override
     public void draw(Graphics2D g) {
         for (CanvasObjectInterface canvasObject : canvasObjects) {

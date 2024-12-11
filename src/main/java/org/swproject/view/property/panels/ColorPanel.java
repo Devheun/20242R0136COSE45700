@@ -15,11 +15,8 @@ public class ColorPanel extends JPanel implements Observer {
 
     private final JButton colorButton = new JButton("Choose Color");
     private CanvasObjectInterface canvasObject;
-    private final Controller controller;
-    private Color savedColor;
 
     public ColorPanel(Controller controller) {
-        this.controller = controller;
         setLayout(new FlowLayout(FlowLayout.RIGHT));
         add(new JLabel("Color"));
         add(colorButton);
@@ -27,13 +24,7 @@ public class ColorPanel extends JPanel implements Observer {
         colorButton.addActionListener(e -> {
             Color color = JColorChooser.showDialog(this, "Choose a Color", Color.WHITE);
             if (color != null) {
-                if (canvasObject != null) {
-                    canvasObject.setColor(color);
-                    this.repaint();
-                    controller.updateObject();
-                } else {
-                    System.out.println("Error: canvasObject is null");
-                }
+                controller.setColor(color);
             }
         });
 

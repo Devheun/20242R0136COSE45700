@@ -22,10 +22,8 @@ public class HeightPanel extends JPanel implements Observer {
         heightField.setEditable(true);
 
         ActionListener heightListener = e -> {
-            String input = heightField.getText();
-            int height = Integer.parseInt(input);
-            canvasObject.setHeight(height);
-            controller.updateObject();
+            int height = Integer.parseInt(heightField.getText());
+            controller.setHeight(height);
         };
         heightField.addActionListener(heightListener);
         add(heightField);

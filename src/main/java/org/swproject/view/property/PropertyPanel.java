@@ -2,6 +2,7 @@ package org.swproject.view.property;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
+import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import org.swproject.controller.Controller;
@@ -15,7 +16,7 @@ import org.swproject.view.property.panels.WidthPanel;
 public class PropertyPanel extends JPanel implements Observer {
 
     private CanvasObjectInterface canvasObject;
-    private Controller controller;
+    private final Controller controller;
     private final WidthPanel widthPanel;
     private final HeightPanel heightPanel;
     private final CoordinatePanel coordinatePanel;
@@ -36,6 +37,13 @@ public class PropertyPanel extends JPanel implements Observer {
         add(widthPanel);
         add(coordinatePanel);
         add(colorPanel);
+
+        JButton undoButton = new JButton("Undo");
+        undoButton.addActionListener(e -> controller.undo());
+        JButton redoButton = new JButton("Redo");
+        redoButton.addActionListener(e -> controller.redo());
+        add(undoButton);
+        add(redoButton);
     }
 
     @Override

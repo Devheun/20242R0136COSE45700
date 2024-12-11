@@ -42,24 +42,16 @@ public class CoordinatePanel extends JPanel implements Observer {
         ActionListener xListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String input = xField.getText();
-                int xCoord = Integer.parseInt(input);
-
-                canvasObject.move(xCoord - canvasObject.getX(), 0);
-
-                controller.updateObject();
+                int xCoord = Integer.parseInt(xField.getText());
+                controller.move(xCoord - canvasObject.getX(), 0);
             }
         };
         ActionListener yListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String input = yField.getText();
-                int yCoord = Integer.parseInt(input);
-
-                canvasObject.move(0, yCoord - canvasObject.getY()
+                int yCoord = Integer.parseInt(yField.getText());
+                controller.move(0, yCoord - canvasObject.getY()
                 );
-
-                controller.updateObject();
             }
         };
         xField.addActionListener(xListener);

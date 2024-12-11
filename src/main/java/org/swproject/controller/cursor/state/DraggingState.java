@@ -1,6 +1,8 @@
 package org.swproject.controller.cursor.state;
 
 import java.awt.event.MouseEvent;
+import org.swproject.command.CommandInvoker;
+import org.swproject.command.MoveCommand;
 import org.swproject.model.Model;
 
 public class DraggingState implements CursorState {
@@ -26,12 +28,12 @@ public class DraggingState implements CursorState {
 
     @Override
     public void mousePressed(MouseEvent event) {
-
     }
 
     @Override
-    public void mouseDragged(MouseEvent event) {
-        model.handleMouseDragged(event);
+    public void mouseDragged(MouseEvent event, int dx, int dy) {
+        MoveCommand moveCommand = new MoveCommand(model, dx, dy);
+        CommandInvoker.getInstance().executeCommand(moveCommand);
     }
 
     @Override

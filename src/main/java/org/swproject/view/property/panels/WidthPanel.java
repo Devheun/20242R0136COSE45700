@@ -21,10 +21,8 @@ public class WidthPanel extends JPanel implements Observer {
         widthField.setEditable(true);
 
         ActionListener widthListener = e -> {
-            String input = widthField.getText();
-            int width = Integer.parseInt(input);
-            canvasObject.setWidth(width);
-            controller.updateObject();
+            int width = Integer.parseInt(widthField.getText());
+            controller.setWidth(width);
         };
         widthField.addActionListener(widthListener);
         add(widthField);

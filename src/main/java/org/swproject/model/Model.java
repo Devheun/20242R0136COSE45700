@@ -1,5 +1,6 @@
 package org.swproject.model;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -57,17 +58,12 @@ public class Model implements Subject {
         mouseY = e.getY();
     }
 
-    public void handleMouseDragged(MouseEvent e) {
-        int dx = e.getX() - mouseX;
-        int dy = e.getY() - mouseY;
-        mouseX = e.getX();
-        mouseY = e.getY();
+    public void handleMouseDragged(int dx, int dy) {
         canvasObjectComposite.move(dx, dy);
-        notifyObserver();
         notifyObserverClickedObjects();
     }
 
-    public void handleResizing(MouseEvent e) {
+    public void handleResize(MouseEvent e) {
         mouseX = e.getX();
         mouseY = e.getY();
 
@@ -77,6 +73,33 @@ public class Model implements Subject {
             int dy = mouseY - obj.getY();
             obj.setWidth(dx);
             obj.setHeight(dy);
+            notifyObserver();
+            notifyObserverClickedObjects();
+        }
+    }
+
+    public void setColor(Color color) {
+        CanvasObjectInterface obj = canvasObjectComposite.getCanvasObjects().getFirst();
+        if (obj != null) {
+            obj.setColor(color);
+            notifyObserver();
+            notifyObserverClickedObjects();
+        }
+    }
+
+    public void setWidth(int width) {
+        CanvasObjectInterface obj = canvasObjectComposite.getCanvasObjects().getFirst();
+        if (obj != null) {
+            obj.setWidth(width);
+            notifyObserver();
+            notifyObserverClickedObjects();
+        }
+    }
+
+    public void setHeight(int height) {
+        CanvasObjectInterface obj = canvasObjectComposite.getCanvasObjects().getFirst();
+        if (obj != null) {
+            obj.setHeight(height);
             notifyObserver();
             notifyObserverClickedObjects();
         }

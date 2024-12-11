@@ -1,12 +1,18 @@
 package org.swproject.controller;
 
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import org.swproject.command.CommandInvoker;
+import org.swproject.command.MoveCommand;
+import org.swproject.command.SetColorCommand;
+import org.swproject.command.SetHeightCommand;
+import org.swproject.command.SetWidthCommand;
 import org.swproject.controller.cursor.Cursor;
 import org.swproject.controller.cursor.state.CursorState;
 import org.swproject.controller.cursor.state.DefaultCursorState;
+import org.swproject.controller.cursor.state.DrawObjectStateEnum;
 import org.swproject.controller.cursor.state.SelectCursorState;
-import org.swproject.model.CanvasObject;
 import org.swproject.model.Model;
 import org.swproject.observer.Observer;
 
@@ -20,8 +26,8 @@ public class Controller extends MouseAdapter {
         this.cursor = new Cursor();
     }
 
-    public void createObject(CanvasObject object) {
-        model.createCanvasObject(object);
+    public void createObject(DrawObjectStateEnum drawState, Color color, int x1, int y1, int x2, int y2) {
+        drawState.createDrawCommand(model, color, x1, y1, x2, y2);
     }
 
     public void updateObject() {
@@ -50,6 +56,34 @@ public class Controller extends MouseAdapter {
 
     public void placeObjectToBack() {
         model.placeObjectToBack();
+    }
+
+    public void move(int dx, int dy) {
+        MoveCommand moveCommand = new MoveCommand(model, dx, dy);
+        CommandInvoker.getInstance().executeCommand(moveCommand);
+    }
+
+    public void setWidth(int width) {
+        SetWidthCommand setWidthCommand = new SetWidthCommand(model, width);
+        CommandInvoker.getInstance().executeCommand(setWidthCommand);
+    }
+
+    public void setHeight(int height) {
+        SetHeightCommand setHeightCommand = new SetHeightCommand(model, height);
+        CommandInvoker.getInstance().executeCommand(setHeightCommand);
+    }
+
+    public void setColor(Color color) {
+        SetColorCommand setColorCommand = new SetColorCommand(model, color);
+        CommandInvoker.getInstance().executeCommand(setColorCommand);
+    }
+
+    public void undo() {
+        CommandInvoker.getInstance().undo();
+    }
+
+    public void redo() {
+        CommandInvoker.getInstance().redo();
     }
 
     @Override

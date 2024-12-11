@@ -24,6 +24,8 @@ public interface CanvasObjectInterface {
 
     int getHeight();
 
+    Color getColor();
+
     void setColor(Color color);
 
     void setX(int x);

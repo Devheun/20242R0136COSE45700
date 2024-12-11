@@ -80,6 +80,11 @@ public class SelectedCanvasObjectDecorator implements CanvasObjectInterface {
     }
 
     @Override
+    public Color getColor() {
+        return canvasObject.getColor();
+    }
+
+    @Override
     public void setColor(Color color) {
         canvasObject.setColor(color);
     }

@@ -1,6 +1,8 @@
 package org.swproject.controller.cursor.state;
 
 import java.awt.event.MouseEvent;
+import org.swproject.command.CommandInvoker;
+import org.swproject.command.ResizeCommand;
 import org.swproject.model.Model;
 
 public class ResizingState implements CursorState {
@@ -31,8 +33,9 @@ public class ResizingState implements CursorState {
     }
 
     @Override
-    public void mouseDragged(MouseEvent event) {
-        model.handleResizing(event);
+    public void mouseDragged(MouseEvent event, int dx, int dy) {
+        ResizeCommand resizeCommand = new ResizeCommand(model, event);
+        CommandInvoker.getInstance().executeCommand(resizeCommand);
     }
 
     @Override

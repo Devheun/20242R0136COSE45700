@@ -53,8 +53,13 @@ public abstract class CanvasObject implements CanvasObjectInterface {
     }
 
     @Override
+    public Color getColor() {
+        return this.color;
+    }
+
+    @Override
     public void setColor(Color color) {
         this.color = color;
     }
-    
+
 }
