@@ -13,7 +13,7 @@ public class SelectedCanvasObjectDecorator implements CanvasObjectInterface {
     private final CanvasObjectInterface canvasObject;
     private final Stroke stroke; // 선 스타일 설정
     private Rectangle resizeHandler = new Rectangle();
-    private int handleSize = 10;
+    private final int HANDLE_SIZE = 6;
 
     public SelectedCanvasObjectDecorator(CanvasObjectInterface canvasObject) {
         this.canvasObject = canvasObject;
@@ -22,17 +22,11 @@ public class SelectedCanvasObjectDecorator implements CanvasObjectInterface {
     }
 
     private void createResizeHandles() {
-        // 모서리에 작은 사각형 핸들러 생성
+//         모서리에 작은 사각형 핸들러 생성
         if (canvasObject.getWidth() != 0) {
-            resizeHandler = new Rectangle(canvasObject.getX() + canvasObject.getWidth() - handleSize / 2,
-                    canvasObject.getY() + canvasObject.getHeight() - handleSize / 2, handleSize, handleSize); // 우하단
+            resizeHandler = new Rectangle(canvasObject.getX() + canvasObject.getWidth() - HANDLE_SIZE / 2,
+                    canvasObject.getY() + canvasObject.getHeight() - HANDLE_SIZE / 2, HANDLE_SIZE, HANDLE_SIZE); // 우하단
         }
-    }
-
-    @Override
-    public void resize(int x, int y, int width, int height) {
-        canvasObject.resize(x, y, width, height);
-        createResizeHandles();
     }
 
     @Override
@@ -41,11 +35,6 @@ public class SelectedCanvasObjectDecorator implements CanvasObjectInterface {
         canvasObject.draw(g);
         g.setColor(Color.BLUE);
         g.fill(resizeHandler);
-    }
-
-    @Override
-    public void setColor(Color color) {
-        canvasObject.setColor(color);
     }
 
     @Override
@@ -74,6 +63,7 @@ public class SelectedCanvasObjectDecorator implements CanvasObjectInterface {
         return canvasObject.getX();
     }
 
+
     @Override
     public int getY() {
         return canvasObject.getY();
@@ -87,6 +77,33 @@ public class SelectedCanvasObjectDecorator implements CanvasObjectInterface {
     @Override
     public int getHeight() {
         return canvasObject.getHeight();
+    }
+
+    @Override
+    public void setColor(Color color) {
+        canvasObject.setColor(color);
+    }
+
+    @Override
+    public void setX(int x) {
+        canvasObject.setX(x);
+    }
+
+    @Override
+    public void setY(int y) {
+        canvasObject.setY(y);
+    }
+
+    @Override
+    public void setWidth(int width) {
+        canvasObject.setWidth(width);
+        createResizeHandles();
+    }
+
+    @Override
+    public void setHeight(int height) {
+        canvasObject.setHeight(height);
+        createResizeHandles();
     }
 
 }

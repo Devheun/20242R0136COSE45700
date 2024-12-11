@@ -35,8 +35,7 @@ public class SelectCursorState implements CursorState {
     public void mouseDragged(MouseEvent event) {
         CanvasObjectComposite canvasObject = model.getCanvasObjectComposite();
         if (isResizing) {
-            canvasObject.handleResizing(event, canvasObject.getX(), canvasObject.getY(), canvasObject.getWidth(),
-                    canvasObject.getHeight());
+            canvasObject.handleResizing(event);
         } else {
             canvasObject.handleMouseDragged(event);
         }

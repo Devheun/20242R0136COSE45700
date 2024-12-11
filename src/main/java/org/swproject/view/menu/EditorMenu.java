@@ -12,7 +12,6 @@ import org.swproject.model.object.RectangleObject;
 public class EditorMenu extends JMenuBar {
 
     private final static int defaultCoordinate = 100;
-    private final static int defaultSize = 100;
     private final static Color defaultColor = Color.BLACK;
 
     public EditorMenu(Controller controller) {
@@ -20,19 +19,19 @@ public class EditorMenu extends JMenuBar {
 
         JMenuItem rectangleItem = new JMenuItem("Rectangle");
         rectangleItem.addActionListener(event -> controller.createObject(new RectangleObject(
-                defaultColor, defaultSize, defaultSize, defaultCoordinate, defaultCoordinate
+                defaultColor, defaultCoordinate, defaultCoordinate, defaultCoordinate + 100, defaultCoordinate + 100
         )));
 
         JMenuItem ellipseItem = new JMenuItem("Ellipse");
         ellipseItem.addActionListener(
                 e -> controller.createObject(
-                        new EllipseObject(defaultColor, defaultSize, defaultSize, defaultCoordinate,
-                                defaultCoordinate)));
+                        new EllipseObject(defaultColor, defaultCoordinate,
+                                defaultCoordinate, defaultCoordinate + 100, defaultCoordinate + 100)));
 
         JMenuItem lineItem = new JMenuItem("Line");
         lineItem.addActionListener(
                 e -> controller.createObject(
-                        new LineObject(defaultColor, defaultCoordinate, defaultCoordinate, defaultSize, defaultSize,
+                        new LineObject(defaultColor, defaultCoordinate, defaultCoordinate,
                                 defaultCoordinate + 100,
                                 defaultCoordinate + 100)));
 

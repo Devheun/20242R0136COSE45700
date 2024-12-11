@@ -5,11 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 
 public interface CanvasObjectInterface {
-    void resize(int x, int y, int width, int height);
 
     void draw(Graphics2D g);
-
-    void setColor(Color color);
 
     void move(int dx, int dy);
 
@@ -26,4 +23,15 @@ public interface CanvasObjectInterface {
     int getWidth();
 
     int getHeight();
+
+    void setColor(Color color);
+
+    void setX(int x);
+
+    void setY(int y);
+
+    void setWidth(int width);
+
+    void setHeight(int height);
+
 }
