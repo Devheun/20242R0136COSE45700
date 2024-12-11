@@ -6,6 +6,8 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import org.swproject.command.CommandInvoker;
 import org.swproject.command.MoveCommand;
+import org.swproject.command.PlaceToBackCommand;
+import org.swproject.command.PlaceToFrontCommand;
 import org.swproject.command.SetColorCommand;
 import org.swproject.command.SetHeightCommand;
 import org.swproject.command.SetWidthCommand;
@@ -50,11 +52,13 @@ public class Controller extends MouseAdapter {
     }
 
     public void placeObjectToFront() {
-        model.placeObjectToFront();
+        PlaceToFrontCommand placeToFront = new PlaceToFrontCommand(model);
+        CommandInvoker.getInstance().executeCommand(placeToFront);
     }
 
     public void placeObjectToBack() {
-        model.placeObjectToBack();
+        PlaceToBackCommand placeToBack = new PlaceToBackCommand(model);
+        CommandInvoker.getInstance().executeCommand(placeToBack);
     }
 
     public void move(int dx, int dy) {
