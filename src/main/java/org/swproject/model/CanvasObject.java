@@ -1,51 +1,21 @@
 package org.swproject.model;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
 import java.awt.Point;
 
 public abstract class CanvasObject implements CanvasObjectInterface {
-
+    protected int x1, x2, y1, y2;
     protected Color color;
     protected int id;
-    protected int x, y;
-    protected int width, height;
-    private final int handleSize = 10;
-    private final int minWidth = 10;
-    private final int minHeight = 10;
 
-    public CanvasObject(Color color, int x, int y, int width, int height) {
+    private final int HANDLE_SIZE = 6;
+
+    public CanvasObject(Color color, int x1, int y1, int x2, int y2) {
         this.color = color;
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-    }
-
-    @Override
-    public void resize(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        if (width > minWidth) {
-            this.width = width;
-        }
-        if (height > minHeight) {
-            this.height = height;
-        }
-    }
-
-    // line일때 실행되는 resize
-    public void resize(int x2, int y2) {
-        this.x = x2;
-        this.y = y2;
-    }
-
-    @Override
-    public abstract void draw(Graphics2D g);
-
-    @Override
-    public void setColor(Color color) {
-        this.color = color;
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
     }
 
     public void setId(int id) {
@@ -54,19 +24,27 @@ public abstract class CanvasObject implements CanvasObjectInterface {
 
     @Override
     public void move(int dx, int dy) {
-        this.x += dx;
-        this.y += dy;
+        x1 += dx;
+        x2 += dx;
+        y1 += dy;
+        y2 += dy;
     }
 
     @Override
     public boolean isPointerInside(Point point) {
-        return (point.x >= x && point.x <= x + width && point.y >= y && point.y <= y + height);
+        int startX = Math.min(x1, x2);
+        int startY = Math.min(y1, y2);
+        int endX = Math.max(x1, x2);
+        int endY = Math.max(y1, y2);
+        return (point.x >= startX && point.x <= endX && point.y >= startY && point.y <= endY);
     }
 
     @Override
     public boolean isResizable(Point point) {
-        return (point.x >= x + width - handleSize / 2 && point.x <= x + width + handleSize / 2) && (
-                point.y >= y + height - handleSize / 2 && point.y <= y + height + handleSize / 2);
+        int endX = Math.max(x1, x2);
+        int endY = Math.max(y1, y2);
+        return (point.x >= endX - HANDLE_SIZE / 2 && point.x <= endX + HANDLE_SIZE / 2) && (
+                point.y >= endY - HANDLE_SIZE / 2 && point.y <= endY + HANDLE_SIZE / 2);
     }
 
     @Override
@@ -75,22 +53,8 @@ public abstract class CanvasObject implements CanvasObjectInterface {
     }
 
     @Override
-    public int getX() {
-        return this.x;
+    public void setColor(Color color) {
+        this.color = color;
     }
-
-    @Override
-    public int getY() {
-        return this.y;
-    }
-
-    @Override
-    public int getWidth() {
-        return this.width;
-    }
-
-    @Override
-    public int getHeight() {
-        return this.height;
-    }
+    
 }

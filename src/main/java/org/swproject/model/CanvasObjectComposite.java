@@ -6,7 +6,6 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
-import org.swproject.model.object.LineObject;
 
 public class CanvasObjectComposite implements CanvasObjectInterface {
 
@@ -39,31 +38,20 @@ public class CanvasObjectComposite implements CanvasObjectInterface {
         move(dx, dy);
     }
 
-    public void handleResizing(MouseEvent e, int x, int y, int width, int height) {
-        int dx = e.getX() - mouseX;
-        int dy = e.getY() - mouseY;
+    public void handleResizing(MouseEvent e) {
         mouseX = e.getX();
         mouseY = e.getY();
 
         CanvasObjectInterface obj = canvasObjects.getFirst();
-        if (obj instanceof LineObject line) {
-            line.resize(obj.getX() + dx, obj.getY() + dy);
-            return;
-        }
-        // Line이 아닌 Rectangle, Ellipse
-        obj.resize(obj.getX(), obj.getY(), obj.getWidth() + dx, obj.getHeight() + dy);
+        int dx = mouseX - obj.getX();
+        int dy = mouseY - obj.getY();
 
+        obj.setWidth(dx);
+        obj.setHeight(dy);
     }
 
     public List<CanvasObjectInterface> getCanvasObjects() {
         return canvasObjects;
-    }
-
-    @Override
-    public void resize(int x, int y, int width, int height) {
-        if (canvasObjects.size() == 1) {
-            canvasObjects.getFirst().resize(x, y, width, height);
-        }
     }
 
     @Override
@@ -72,14 +60,6 @@ public class CanvasObjectComposite implements CanvasObjectInterface {
             canvasObject.draw(g);
         }
     }
-
-    @Override
-    public void setColor(Color color) {
-        for (CanvasObjectInterface canvasObject : canvasObjects) {
-            canvasObject.setColor(color);
-        }
-    }
-
 
     @Override
     public void move(int dx, int dy) {
@@ -144,5 +124,40 @@ public class CanvasObjectComposite implements CanvasObjectInterface {
             return canvasObjects.getFirst().getHeight();
         }
         return 0;
+    }
+
+    @Override
+    public void setColor(Color color) {
+        for (CanvasObjectInterface canvasObject : canvasObjects) {
+            canvasObject.setColor(color);
+        }
+    }
+
+    @Override
+    public void setX(int x) {
+        if (canvasObjects.size() == 1) {
+            canvasObjects.getFirst().setX(x);
+        }
+    }
+
+    @Override
+    public void setY(int y) {
+        if (canvasObjects.size() == 1) {
+            canvasObjects.getFirst().setY(y);
+        }
+    }
+
+    @Override
+    public void setWidth(int width) {
+        if (canvasObjects.size() == 1) {
+            canvasObjects.getFirst().setWidth(width);
+        }
+    }
+
+    @Override
+    public void setHeight(int height) {
+        if (canvasObjects.size() == 1) {
+            canvasObjects.getFirst().setHeight(height);
+        }
     }
 }

@@ -45,8 +45,7 @@ public class CoordinatePanel extends JPanel implements Observer {
                 String input = xField.getText();
                 int xCoord = Integer.parseInt(input);
 
-                canvasObject.resize(xCoord, canvasObject.getY(),
-                        canvasObject.getWidth(), canvasObject.getHeight());
+                canvasObject.move(xCoord - canvasObject.getX(), 0);
 
                 controller.updateObject();
             }
@@ -57,8 +56,8 @@ public class CoordinatePanel extends JPanel implements Observer {
                 String input = yField.getText();
                 int yCoord = Integer.parseInt(input);
 
-                canvasObject.resize(canvasObject.getX(), yCoord,
-                        canvasObject.getWidth(), canvasObject.getHeight());
+                canvasObject.move(0, yCoord - canvasObject.getY()
+                );
 
                 controller.updateObject();
             }

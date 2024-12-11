@@ -12,7 +12,7 @@ public class ResizingState implements CursorState {
     public ResizingState(Model model) {
         this.model = model;
     }
-    
+
     public static ResizingState getInstance(Model model) {
         if (instance == null) {
             instance = new ResizingState(model);
@@ -34,8 +34,7 @@ public class ResizingState implements CursorState {
     @Override
     public void mouseDragged(MouseEvent event) {
         CanvasObjectComposite canvasObject = model.getCanvasObjectComposite();
-        canvasObject.handleResizing(event, canvasObject.getX(), canvasObject.getY(), canvasObject.getWidth(),
-                canvasObject.getHeight());
+        canvasObject.handleResizing(event);
         model.notifyObserverClickedObjects();
     }
 

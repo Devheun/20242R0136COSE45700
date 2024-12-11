@@ -55,7 +55,7 @@ public class PropertyPanel extends JPanel implements Observer {
     }
 
     public void updateCanvasObject(int x, int y, int width, int height) {
-        canvasObject.resize(x, y, width, height);
+//        canvasObject.resize(x, y);
         this.controller.updateObject();
     }
 }
