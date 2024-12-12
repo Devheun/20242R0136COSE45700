@@ -3,15 +3,12 @@ package org.swproject.model;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CanvasObjectComposite implements CanvasObjectInterface {
 
     private final List<CanvasObjectInterface> canvasObjects = new ArrayList<>();
-
-    private int mouseX, mouseY;
 
     public void add(CanvasObjectInterface canvasObject) {
         canvasObjects.add(canvasObject);
@@ -25,33 +22,15 @@ public class CanvasObjectComposite implements CanvasObjectInterface {
         return canvasObjects.contains(canvasObject);
     }
 
-    public void handleMousePressed(MouseEvent e) {
-        mouseX = e.getX();
-        mouseY = e.getY();
-    }
-
-    public void handleMouseDragged(MouseEvent e) {
-        int dx = e.getX() - mouseX;
-        int dy = e.getY() - mouseY;
-        mouseX = e.getX();
-        mouseY = e.getY();
-        move(dx, dy);
-    }
-
-    public void handleResizing(MouseEvent e) {
-        mouseX = e.getX();
-        mouseY = e.getY();
-
-        CanvasObjectInterface obj = canvasObjects.getFirst();
-        int dx = mouseX - obj.getX();
-        int dy = mouseY - obj.getY();
-
-        obj.setWidth(dx);
-        obj.setHeight(dy);
-    }
-
     public List<CanvasObjectInterface> getCanvasObjects() {
         return canvasObjects;
+    }
+
+    public Color getColor() {
+        if (canvasObjects.size() == 1) {
+            return canvasObjects.getFirst().getColor();
+        }
+        return null;
     }
 
     @Override

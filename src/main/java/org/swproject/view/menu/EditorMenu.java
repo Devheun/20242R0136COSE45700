@@ -5,9 +5,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import org.swproject.controller.Controller;
-import org.swproject.model.object.EllipseObject;
-import org.swproject.model.object.LineObject;
-import org.swproject.model.object.RectangleObject;
+import org.swproject.controller.cursor.state.DrawObjectStateEnum;
 
 public class EditorMenu extends JMenuBar {
 
@@ -18,22 +16,19 @@ public class EditorMenu extends JMenuBar {
         JMenu shapeMenu = new JMenu("Add shape");
 
         JMenuItem rectangleItem = new JMenuItem("Rectangle");
-        rectangleItem.addActionListener(event -> controller.createObject(new RectangleObject(
-                defaultColor, defaultCoordinate, defaultCoordinate, defaultCoordinate + 100, defaultCoordinate + 100
-        )));
+        rectangleItem.addActionListener(
+                event -> controller.drawObject(DrawObjectStateEnum.DRAW_RECTANGLE, defaultColor, defaultCoordinate,
+                        defaultCoordinate, defaultCoordinate + 100, defaultCoordinate + 100));
 
         JMenuItem ellipseItem = new JMenuItem("Ellipse");
         ellipseItem.addActionListener(
-                e -> controller.createObject(
-                        new EllipseObject(defaultColor, defaultCoordinate,
-                                defaultCoordinate, defaultCoordinate + 100, defaultCoordinate + 100)));
+                event -> controller.drawObject(DrawObjectStateEnum.DRAW_ELLIPSE, defaultColor, defaultCoordinate,
+                        defaultCoordinate, defaultCoordinate + 100, defaultCoordinate + 100));
 
         JMenuItem lineItem = new JMenuItem("Line");
         lineItem.addActionListener(
-                e -> controller.createObject(
-                        new LineObject(defaultColor, defaultCoordinate, defaultCoordinate,
-                                defaultCoordinate + 100,
-                                defaultCoordinate + 100)));
+                event -> controller.drawObject(DrawObjectStateEnum.DRAW_LINE, defaultColor, defaultCoordinate,
+                        defaultCoordinate, defaultCoordinate + 100, defaultCoordinate + 100));
 
         shapeMenu.add(rectangleItem);
         shapeMenu.add(ellipseItem);

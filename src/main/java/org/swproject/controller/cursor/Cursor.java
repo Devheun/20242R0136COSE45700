@@ -6,6 +6,7 @@ import org.swproject.controller.cursor.state.DefaultCursorState;
 
 public class Cursor {
     private CursorState cursorState;
+    private int lastX, lastY;
 
     public Cursor() {
         this.cursorState = new DefaultCursorState();
@@ -20,11 +21,17 @@ public class Cursor {
     }
 
     public void mousePressed(MouseEvent event) {
+        lastX = event.getX();
+        lastY = event.getY();
         cursorState.mousePressed(event);
     }
 
     public void mouseDragged(MouseEvent event) {
-        cursorState.mouseDragged(event);
+        int dx = event.getX() - lastX;
+        int dy = event.getY() - lastY;
+        lastX = event.getX();
+        lastY = event.getY();
+        cursorState.mouseDragged(event, dx, dy);
     }
 
     public void mouseReleased(MouseEvent event) {

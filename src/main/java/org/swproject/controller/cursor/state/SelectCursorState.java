@@ -1,6 +1,8 @@
 package org.swproject.controller.cursor.state;
 
 import java.awt.event.MouseEvent;
+import org.swproject.command.CommandInvoker;
+import org.swproject.command.SelectCommand;
 import org.swproject.model.CanvasObjectComposite;
 import org.swproject.model.CanvasObjectInterface;
 import org.swproject.model.Model;
@@ -36,12 +38,13 @@ public class SelectCursorState implements CursorState {
         } else {
             changeState(DraggingState.getInstance(model));
         }
-        canvasObject.handleMousePressed(event);
+        SelectCommand selectCommand = new SelectCommand(model, event);
+        CommandInvoker.getInstance().executeCommand(selectCommand);
     }
 
     @Override
-    public void mouseDragged(MouseEvent event) {
-        currentState.mouseDragged(event);
+    public void mouseDragged(MouseEvent event, int dx, int dy) {
+        currentState.mouseDragged(event, dx, dy);
     }
 
     @Override

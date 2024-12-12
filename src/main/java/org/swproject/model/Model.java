@@ -1,7 +1,10 @@
 package org.swproject.model;
 
+import java.awt.Color;
 import java.awt.Point;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.List;
 import org.swproject.observer.Observer;
 import org.swproject.observer.Subject;
 
@@ -10,6 +13,7 @@ public class Model implements Subject {
     private static final ArrayList<Observer> observers = new ArrayList<>();
 
     private static final CanvasObjectComposite canvasObjectComposite = new CanvasObjectComposite();
+    private int mouseX, mouseY;
 
     public void createCanvasObject(CanvasObject canvasObject) {
         int size = canvasObjects.size();
@@ -23,7 +27,8 @@ public class Model implements Subject {
         notifyObserver();
     }
 
-    public void updateCanvasObject() {
+    public void removeCanvasObject(CanvasObjectInterface canvasObject) {
+        canvasObjects.remove(canvasObject);
         notifyObserver();
     }
 
@@ -45,8 +50,64 @@ public class Model implements Subject {
         notifyObserverClickedObjects();
     }
 
+    public void handleMousePressed(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+    }
+
+    public void handleMouseDragged(int dx, int dy) {
+        canvasObjectComposite.move(dx, dy);
+        notifyObserverClickedObjects();
+    }
+
+    public void handleResize(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+
+        CanvasObjectInterface obj = canvasObjectComposite.getCanvasObjects().getFirst();
+        if (obj != null) {
+            int dx = mouseX - obj.getX();
+            int dy = mouseY - obj.getY();
+            obj.setWidth(dx);
+            obj.setHeight(dy);
+            notifyObserver();
+            notifyObserverClickedObjects();
+        }
+    }
+
+    public void setColor(Color color) {
+        CanvasObjectInterface obj = canvasObjectComposite.getCanvasObjects().getFirst();
+        if (obj != null) {
+            obj.setColor(color);
+            notifyObserver();
+            notifyObserverClickedObjects();
+        }
+    }
+
+    public void setWidth(int width) {
+        CanvasObjectInterface obj = canvasObjectComposite.getCanvasObjects().getFirst();
+        if (obj != null) {
+            obj.setWidth(width);
+            notifyObserver();
+            notifyObserverClickedObjects();
+        }
+    }
+
+    public void setHeight(int height) {
+        CanvasObjectInterface obj = canvasObjectComposite.getCanvasObjects().getFirst();
+        if (obj != null) {
+            obj.setHeight(height);
+            notifyObserver();
+            notifyObserverClickedObjects();
+        }
+    }
+
     public CanvasObjectComposite getCanvasObjectComposite() {
         return canvasObjectComposite;
+    }
+
+    public List<CanvasObjectInterface> getCanvasObjects() {
+        return canvasObjects;
     }
 
     public void notifyObserverClickedObjects() {
@@ -89,7 +150,7 @@ public class Model implements Subject {
     @Override
     public void notifyObserver() {
         for (Observer o : observers) {
-            o.updateCanvasObjects(canvasObjects);
+            o.updateCanvasObjects();
         }
     }
 }
